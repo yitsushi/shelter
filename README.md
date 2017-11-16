@@ -17,6 +17,7 @@ end
 Create a ruby file under your inventory directory:
 
 ```
+# inventory/my_inventory.rb
 module Inventory
   class MyInventory
     def load(inventory)
@@ -32,9 +33,8 @@ end
 Create a directory under your `stack` directory (eg: `random`)
 and create your template there. `cli.rb` will be loaded.
 
-
-cli.rb:
 ```
+# stack/random_stack/cli.rb:
 module Stack
   class RandomStack < Shelter::CLI::Stack::CloudFormation
     set_attr :stack_name, 'random'
