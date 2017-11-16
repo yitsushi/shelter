@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ::Gem::Requirement.new('>= 2.3')
 
-  s.files       = Dir['README.md', 'lib/**/*.rb']
+  s.files       = Dir['README.md', 'LICENSE', 'lib/**/*.rb']
   s.executables = ['shelter', 'shelter-inventory']
 
   s.require_path = 'lib'
