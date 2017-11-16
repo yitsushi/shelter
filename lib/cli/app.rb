@@ -32,10 +32,10 @@ module Harbor
 
         stack_name = File.basename(path)
         register(
-          Object.const_get("Stack::#{stack_name.capitalize}"),
+          Object.const_get("Stack::#{stack_name.camelize}"),
           stack_name,
           "#{stack_name} [COMMAND]",
-          "Manage #{stack_name.capitalize} stack"
+          "Manage #{stack_name.camelize} stack"
         )
       end
     end

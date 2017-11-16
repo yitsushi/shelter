@@ -9,7 +9,7 @@ inventory = Harbor::Ansible::Inventory.new
 Harbor::CLI::App.config.inventory.each do |script|
   begin
     require File.join(Harbor::CLI::App.config.project_root, script)
-    class_name = "Inventory::#{File.basename(script, File.extname(script)).capitalize}"
+    class_name = "Inventory::#{File.basename(script, File.extname(script)).camelize}"
     inv = Object.const_get(class_name).new()
     inv.load(inventory)
   rescue Exception => e
