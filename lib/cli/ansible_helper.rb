@@ -3,7 +3,6 @@ module Harbor
     # Mixin module for Ansible
     module AnsibleHelpers
       def vault_password_file
-        p App.config
         [
           '--vault-password-file',
           "#{App.config.secure_root}/ansible_vault_password"
