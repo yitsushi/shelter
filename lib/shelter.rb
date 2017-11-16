@@ -6,6 +6,7 @@ directories = %w(
   cli
 )
 
+# Extend String class with camelize
 class String
   def camelize(uppercase_first_letter = true)
     string = self

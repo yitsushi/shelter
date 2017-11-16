@@ -9,8 +9,9 @@ inventory = Shelter::Ansible::Inventory.new
 Shelter::CLI::App.config.inventory.each do |script|
   begin
     require File.join(Shelter::CLI::App.config.project_root, script)
-    class_name = "Inventory::#{File.basename(script, File.extname(script)).camelize}"
-    inv = Object.const_get(class_name).new()
+    class_name = File.basename(script, File.extname(script)).camelize
+    class_name = "Inventory::#{class_name}"
+    inv = Object.const_get(class_name).new
     inv.load(inventory)
   rescue Exception => e
     $stderr.puts "[x] Error with #{script}"

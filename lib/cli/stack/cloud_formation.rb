@@ -4,10 +4,13 @@ require 'aws-sdk'
 module Shelter
   module CLI
     module Stack
+      # CloudFormation based stack base
       class CloudFormation < Thor
         desc 'status', 'Stack status'
         def status
-          target_stack = cf_client.describe_stacks(stack_name: get_attr(:stack_name)).stacks.first
+          target_stack = cf_client.describe_stacks(
+            stack_name: get_attr(:stack_name)
+          ).stacks.first
 
           puts "#{target_stack.stack_name} exists..."
           puts "Created: #{target_stack.creation_time}"
@@ -16,13 +19,13 @@ module Shelter
             stack_name: target_stack.stack_name
           )
           resources.stack_resources.each do |r|
-            puts ' __________________________________________________________________________________________'
-            puts '| Stack Name | Resource ID              | Resource Type                  | Resource Status |'
-            puts "| #{r.stack_name} | #{r.physical_resource_id} | #{r.resource_type} | #{r.resource_status}  |"
-            puts ' ------------------------------------------------------------------------------------------'
+            puts "Stack Name: #{r.stack_name}"
+            puts "Resource ID: #{r.physical_resource_id}"
+            puts "Resource Type: #{r.resource_type}"
+            puts "Resource Status: #{r.resource_status}"
           end
         rescue Exception => e
-          fail Thor::Error, e.message
+          raise Thor::Error, e.message
         end
 
         desc 'create', 'Create stack'
@@ -38,14 +41,17 @@ module Shelter
             ]
           )
           i = 0
-          cf_client.wait_until(:stack_create_complete, stack_name: get_attr(:stack_name)) do |w|
+          cf_client.wait_until(
+            :stack_create_complete,
+            stack_name: get_attr(:stack_name)
+          ) do |w|
             w.before_attempt do
               i = (i + 1) % SPINNER.size
               print "\r#{SPINNER[i]}"
             end
           end
         rescue Exception => e
-          fail Thor::Error, e.message
+          raise Thor::Error, e.message
         end
 
         desc 'update', 'Update stack'
@@ -56,17 +62,18 @@ module Shelter
             capabilities: ['CAPABILITY_IAM']
           )
           i = 0
-          cf_client.wait_until(:stack_update_complete, stack_name: get_attr(:stack_name)) do |w|
+          cf_client.wait_until(
+            :stack_update_complete,
+            stack_name: get_attr(:stack_name)
+          ) do |w|
             w.before_attempt do
               i = (i + 1) % SPINNER.size
               print "\r#{SPINNER[i]}"
             end
           end
         rescue Exception => e
-          fail Thor::Error, e.message
+          raise Thor::Error, e.message
         end
-
-
 
         no_commands do
           class << self
@@ -89,16 +96,18 @@ module Shelter
             )
           end
 
-          def get_public_ip
-            target_stack = cf_client.describe_stacks(stack_name: get_attr(:stack_name)).stacks.first
+          def public_ip
+            target_stack = cf_client.describe_stacks(
+              stack_name: get_attr(:stack_name)
+            ).stacks.first
 
             resources = cf_client.describe_stack_resources(
               stack_name: target_stack.stack_name
             )
 
-            eip = resources.stack_resources.select { |r|
+            eip = resources.stack_resources.select do |r|
               r.resource_type == 'AWS::EC2::EIP'
-            }.first
+            end.first
 
             eip.physical_resource_id
           end
@@ -107,5 +116,3 @@ module Shelter
     end
   end
 end
-
-

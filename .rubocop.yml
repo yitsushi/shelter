@@ -1,0 +1,10 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.0
+  Exclude:
+    - "Rakefile"
+    - "vendor/**/*"
+    - "*.gemspec"
+    - "Gemfile"
+
+

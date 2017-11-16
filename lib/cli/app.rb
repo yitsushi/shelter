@@ -25,9 +25,9 @@ module Shelter
       )
 
       # Register server managers
-      path = File.join(App.config.stack_directory, '*')
-      Dir.glob(path).each do |path|
-        next unless File.exists? "#{path}/cli.rb"
+      base_path = File.join(App.config.stack_directory, '*')
+      Dir.glob(base_path).each do |path|
+        next unless File.exist? "#{path}/cli.rb"
         require File.join(App.config.project_root, path, 'cli.rb')
 
         stack_name = File.basename(path)
@@ -40,12 +40,11 @@ module Shelter
       end
 
       # Register server managers
-      path = File.join(App.config.plugin_directory, '*')
-      Dir.glob(path).each do |path|
-        next unless File.exists? "#{path}/main.rb"
+      base_path = File.join(App.config.plugin_directory, '*')
+      Dir.glob(base_path).each do |path|
+        next unless File.exist? "#{path}/main.rb"
         require File.join(App.config.project_root, path, 'main.rb')
       end
     end
   end
 end
-

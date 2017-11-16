@@ -1,4 +1,5 @@
 module Shelter
+  # Read and manage configuration
   class Configuration
     attr_accessor :ansible_directory,
                   :stack_directory,
@@ -13,7 +14,10 @@ module Shelter
       @ansible_directory = 'ansible'
       @stack_directory = 'stacks'
       @secure_root = ENV.fetch('SECURE', 'secure')
-      @inventory_script = File.join(File.dirname($PROGRAM_NAME), 'shelter-inventory')
+      @inventory_script = File.join(
+        File.dirname($PROGRAM_NAME),
+        'shelter-inventory'
+      )
       @inventory_directory = 'inventory'
       @plugin_directory = 'plugin'
     end
@@ -28,6 +32,7 @@ module Shelter
     end
 
     private
+
     def shelterfile
       @shelterfile ||= File.join(find_project_root, 'Shelterfile.rb')
     end
@@ -38,7 +43,7 @@ module Shelter
       dir = Dir.pwd
       loop do
         break if File.exist?('Shelterfile.rb')
-        fail 'No Shelterfile.rb found' if Dir.pwd == '/'
+        raise 'No Shelterfile.rb found' if Dir.pwd == '/'
         Dir.chdir('..')
       end
       @project_root = Dir.pwd
@@ -47,4 +52,3 @@ module Shelter
     end
   end
 end
-

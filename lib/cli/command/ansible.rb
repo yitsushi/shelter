@@ -36,4 +36,3 @@ module Shelter
     end
   end
 end
-

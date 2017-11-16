@@ -42,11 +42,9 @@ module Shelter
         command += optional_params(tags: tags, skip: skip, limit: limit)
         command << "#{App.config.ansible_directory}/#{playbook}.yaml"
 
-        full_command = "#{command.join(' ')}"
-        $stdout.puts full_command
+        full_command = command.join(' ')
         system full_command
       end
     end
   end
 end
-

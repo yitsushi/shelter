@@ -15,7 +15,7 @@ module Shelter
         @inv[group] ||= { hosts: [], vars: {} }
 
         @inv[group][:hosts] << ip
-        #@inv[group][:vars] = { ansible_host: ip }.merge(vars)
+        @inv[group][:vars].merge!(vars)
       end
 
       def to_json
