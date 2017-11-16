@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.require_path = 'lib'
 
-  s.homepage    = 'http://cheppers.com/'
+  s.homepage    = 'https://github.com/yitsushi/harbor'
   s.license     = 'MIT'
 
   s.add_dependency 'aws-sdk', '~> 3'
