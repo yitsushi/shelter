@@ -4,7 +4,8 @@ module Harbor
                   :stack_directory,
                   :secure_root,
                   :inventory_script,
-                  :inventory_directory
+                  :inventory_directory,
+                  :plugin_directory
 
     attr_reader   :project_root
 
@@ -14,6 +15,7 @@ module Harbor
       @secure_root = ENV.fetch('SECURE', 'secure')
       @inventory_script = File.join(File.dirname($PROGRAM_NAME), 'harbor-inventory')
       @inventory_directory = 'inventory'
+      @plugin_directory = 'plugin'
     end
 
     def load_harborfile

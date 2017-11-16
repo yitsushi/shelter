@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
   s.email       = 'balazs.nadasdi@cheppers.com'
 
   s.required_ruby_version = ::Gem::Requirement.new('>= 2.3')
-  s.files = Dir.glob('lib/**/*.rb')
+
+  s.files       = Dir['README.md', 'lib/**/*.rb']
   s.executables = ['harbor', 'harbor-inventory']
 
   s.require_path = 'lib'

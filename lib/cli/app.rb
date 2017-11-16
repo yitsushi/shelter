@@ -38,6 +38,13 @@ module Harbor
           "Manage #{stack_name.camelize} stack"
         )
       end
+
+      # Register server managers
+      path = File.join(App.config.plugin_directory, '*')
+      Dir.glob(path).each do |path|
+        next unless File.exists? "#{path}/main.rb"
+        require File.join(App.config.project_root, path, 'main.rb')
+      end
     end
   end
 end
