@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.push File.expand_path('../../lib', __FILE__)
+
+require 'harbor'
+
+inventory = Harbor::Ansible::Inventory.new
+
+Harbor::CLI::App.config.inventory.each do |script|
+  begin
+    require File.join(Harbor::CLI::App.config.project_root, script)
+    class_name = "Inventory::#{File.basename(script, File.extname(script)).capitalize}"
+    inv = Object.const_get(class_name).new()
+    inv.load(inventory)
+  rescue Exception => e
+    $stderr.puts "[x] Error with #{script}"
+    $stderr.puts e.message
+  end
+end
+
+puts inventory.to_json
+
+# vim: set filetype=ruby:
+
