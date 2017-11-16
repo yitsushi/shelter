@@ -1,4 +1,4 @@
-module Harbor
+module Shelter
   class Configuration
     attr_accessor :ansible_directory,
                   :stack_directory,
@@ -13,13 +13,13 @@ module Harbor
       @ansible_directory = 'ansible'
       @stack_directory = 'stacks'
       @secure_root = ENV.fetch('SECURE', 'secure')
-      @inventory_script = File.join(File.dirname($PROGRAM_NAME), 'harbor-inventory')
+      @inventory_script = File.join(File.dirname($PROGRAM_NAME), 'shelter-inventory')
       @inventory_directory = 'inventory'
       @plugin_directory = 'plugin'
     end
 
-    def load_harborfile
-      load harborfile if @harborfile.nil?
+    def load_shelterfile
+      load shelterfile if @shelterfile.nil?
     end
 
     def inventory
@@ -28,8 +28,8 @@ module Harbor
     end
 
     private
-    def harborfile
-      @harborfile ||= File.join(find_project_root, 'Harborfile.rb')
+    def shelterfile
+      @shelterfile ||= File.join(find_project_root, 'Shelterfile.rb')
     end
 
     def find_project_root
@@ -37,8 +37,8 @@ module Harbor
 
       dir = Dir.pwd
       loop do
-        break if File.exist?('Harborfile.rb')
-        fail 'No Harborfile.rb found' if Dir.pwd == '/'
+        break if File.exist?('Shelterfile.rb')
+        fail 'No Shelterfile.rb found' if Dir.pwd == '/'
         Dir.chdir('..')
       end
       @project_root = Dir.pwd

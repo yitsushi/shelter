@@ -1,4 +1,4 @@
-module Harbor
+module Shelter
   module CLI
     # Mixin module for Ansible
     module AnsibleHelpers

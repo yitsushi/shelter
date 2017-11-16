@@ -1,9 +1,9 @@
 require 'thor'
 
-module Harbor
+module Shelter
   module CLI
     module Command
-      # Ansible subcommand for Harbor
+      # Ansible subcommand for Shelter
       class Ansible < Thor
         desc 'update', 'update existing infrastructure'
         method_option :only,
@@ -30,7 +30,7 @@ module Harbor
         end
 
         no_commands do
-          include Harbor::CLI::AnsibleHelpers
+          include Shelter::CLI::AnsibleHelpers
         end
       end
     end

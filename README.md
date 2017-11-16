@@ -1,9 +1,9 @@
 # Configuration
 
-Create `Harborfile.rb`:
+Create `Shelterfile.rb`:
 
 ```
-Harbor::CLI::App.config do |c|
+Shelter::CLI::App.config do |c|
   c.ansible_directory = 'ansible'
   c.stack_directory = 'stack'
   c.plugin_directory = 'plugin'
@@ -36,7 +36,7 @@ and create your template there. `cli.rb` will be loaded.
 cli.rb:
 ```
 module Stack
-  class RandomStack < Harbor::CLI::Stack::CloudFormation
+  class RandomStack < Shelter::CLI::Stack::CloudFormation
     set_attr :stack_name, 'random'
     set_attr :template_file, File.expand_path('template.yaml', File.dirname(__FILE__))
     set_attr :meta, {
@@ -68,7 +68,7 @@ module Plugin
   end
 end
 
-Harbor::CLI::App.register(Plugin::Check, 'check', 'check [COMMAND]', 'check plugin')
+Shelter::CLI::App.register(Plugin::Check, 'check', 'check [COMMAND]', 'check plugin')
 ```
 
 ### Example #2: extra command under a specific namespace
@@ -88,5 +88,5 @@ module Plugin
   end
 end
 
-Harbor::CLI::Command::Ansible.register(Plugin::Ansible, 'scanner', 'scanner', 'Scan')
+Shelter::CLI::Command::Ansible.register(Plugin::Ansible, 'scanner', 'scanner', 'Scan')
 ```

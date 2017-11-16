@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    harbor (0.0.1)
+    shelter (0.0.3)
       aws-sdk (~> 3)
       thor (= 0.20.0)
 
@@ -450,7 +450,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  harbor!
+  shelter!
 
 BUNDLED WITH
    1.16.0.pre.3

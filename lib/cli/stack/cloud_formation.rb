@@ -1,7 +1,7 @@
 require 'thor'
 require 'aws-sdk'
 
-module Harbor
+module Shelter
   module CLI
     module Stack
       class CloudFormation < Thor

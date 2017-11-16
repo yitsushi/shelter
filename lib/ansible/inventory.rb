@@ -1,4 +1,4 @@
-module Harbor
+module Shelter
   module Ansible
     # Ansible Inventory representation
     class Inventory

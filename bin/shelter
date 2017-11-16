@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH.push File.expand_path('../../lib', __FILE__)
-require 'harbor'
+require 'shelter'
 
-Harbor::CLI::App.start(ARGV)
+Shelter::CLI::App.start(ARGV)
 
 # vim: set filetype=ruby:

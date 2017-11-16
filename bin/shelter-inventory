@@ -2,13 +2,13 @@
 
 $LOAD_PATH.push File.expand_path('../../lib', __FILE__)
 
-require 'harbor'
+require 'shelter'
 
-inventory = Harbor::Ansible::Inventory.new
+inventory = Shelter::Ansible::Inventory.new
 
-Harbor::CLI::App.config.inventory.each do |script|
+Shelter::CLI::App.config.inventory.each do |script|
   begin
-    require File.join(Harbor::CLI::App.config.project_root, script)
+    require File.join(Shelter::CLI::App.config.project_root, script)
     class_name = "Inventory::#{File.basename(script, File.extname(script)).camelize}"
     inv = Object.const_get(class_name).new()
     inv.load(inventory)

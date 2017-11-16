@@ -3,22 +3,22 @@ require 'thor'
 require_all(File.join(File.dirname(__FILE__), 'command'))
 require_all(File.join(File.dirname(__FILE__), 'stack'))
 
-module Harbor
+module Shelter
   module CLI
-    # Main Harbor app
+    # Main Shelter app
     class App < Thor
       class << self
         attr_writer :config
       end
 
       def self.config
-        @config ||= Harbor::Configuration.new
-        @config.load_harborfile
+        @config ||= Shelter::Configuration.new
+        @config.load_shelterfile
         block_given? ? yield(@config) : @config
       end
 
       register(
-        Harbor::CLI::Command::Ansible,
+        Shelter::CLI::Command::Ansible,
         'ansible',
         'ansible [COMMAND]',
         'Ansible related commands'
