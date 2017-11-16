@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'thor'
 
 require_all(File.join(File.dirname(__FILE__), 'command'))

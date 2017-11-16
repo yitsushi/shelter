@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shelter
   module Ansible
     # Ansible Inventory representation

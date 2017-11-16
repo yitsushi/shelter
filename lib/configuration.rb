@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shelter
   # Read and manage configuration
   class Configuration

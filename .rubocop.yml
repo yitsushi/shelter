@@ -1,6 +1,6 @@
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.0
+  TargetRubyVersion: 2.3
   Exclude:
     - "Rakefile"
     - "vendor/**/*"

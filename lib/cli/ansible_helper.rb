@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Shelter
   module CLI
     # Mixin module for Ansible

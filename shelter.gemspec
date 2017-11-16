@@ -21,5 +21,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'aws-sdk', '~> 3'
   s.add_dependency 'thor', '=0.20.0'
+
+  s.add_development_dependency 'rake', '>= 12.0'
+  s.add_development_dependency 'rdoc', '>= 5.1'
+  s.add_development_dependency 'rubocop', '>= 0.48'
 end
 

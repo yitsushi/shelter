@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 require 'version'
 require 'configuration'
 
-directories = %w(
+directories = %w[
   ansible
   cli
-)
+]
 
 # Extend String class with camelize
 class String
   def camelize(uppercase_first_letter = true)
     string = self
-    if uppercase_first_letter
-      string = string.sub(/^[a-z\d]*/) { $&.capitalize }
-    else
-      string = string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
-    end
-    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{$2.capitalize}" }.gsub('/', '::')
+    string = if uppercase_first_letter
+               string.sub(/^[a-z\d]*/) { $&.capitalize }
+             else
+               string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
+             end
+    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{Regexp.last_match(1)}#{Regexp.last_match(2).capitalize}" }.gsub('/', '::')
   end
 end
 
@@ -32,4 +34,3 @@ end
 directories.each do |dir|
   require_all(File.join(File.dirname(__FILE__), dir))
 end
-

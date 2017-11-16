@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 $LOAD_PATH.push File.expand_path('../../lib', __FILE__)
 
@@ -14,12 +15,11 @@ Shelter::CLI::App.config.inventory.each do |script|
     inv = Object.const_get(class_name).new
     inv.load(inventory)
   rescue Exception => e
-    $stderr.puts "[x] Error with #{script}"
-    $stderr.puts e.message
+    warn "[x] Error with #{script}"
+    warn e.message
   end
 end
 
 puts inventory.to_json
 
 # vim: set filetype=ruby:
-
