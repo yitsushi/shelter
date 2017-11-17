@@ -2,7 +2,7 @@
 
 Create `Shelterfile.rb`:
 
-```
+```ruby
 Shelter::CLI::App.config do |c|
   c.ansible_directory = 'ansible'
   c.stack_directory = 'stack'
@@ -16,7 +16,7 @@ end
 
 Create a ruby file under your inventory directory:
 
-```
+```ruby
 # inventory/my_inventory.rb
 module Inventory
   class MyInventory
@@ -33,7 +33,7 @@ end
 Create a directory under your `stack` directory (eg: `random`)
 and create your template there. `cli.rb` will be loaded.
 
-```
+```ruby
 # stack/random_stack/cli.rb:
 module Stack
   class RandomStack < Shelter::CLI::Stack::CloudFormation
@@ -55,7 +55,7 @@ Create a directory under your `plugin` directory and place your code there.
 
 ### Example #1: extra command
 
-```
+```ruby
 # plugin/check/main.rb
 require 'thor'
 
@@ -73,7 +73,7 @@ Shelter::CLI::App.register(Plugin::Check, 'check', 'check [COMMAND]', 'check plu
 
 ### Example #2: extra command under a specific namespace
 
-```
+```ruby
 # plugin/ansible_scanner/main.rb
 require 'thor'
 
