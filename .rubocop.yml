@@ -6,5 +6,7 @@ AllCops:
     - "vendor/**/*"
     - "*.gemspec"
     - "Gemfile"
+    - "pkg/**/*"
 
-
+RescueException:
+  Enabled: false

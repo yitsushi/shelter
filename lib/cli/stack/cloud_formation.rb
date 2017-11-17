@@ -10,24 +10,15 @@ module Shelter
       class CloudFormation < Thor
         desc 'status', 'Stack status'
         def status
-          target_stack = cf_client.describe_stacks(
+          stack = cf_client.describe_stacks(
             stack_name: get_attr(:stack_name)
           ).stacks.first
 
-          puts "#{target_stack.stack_name} exists..."
-          puts "Created: #{target_stack.creation_time}"
+          puts "#{stack.stack_name} exists | #{stack.creation_time}"
 
-          resources = cf_client.describe_stack_resources(
-            stack_name: target_stack.stack_name
-          )
-          resources.stack_resources.each do |r|
-            puts "Stack Name: #{r.stack_name}"
-            puts "Resource ID: #{r.physical_resource_id}"
-            puts "Resource Type: #{r.resource_type}"
-            puts "Resource Status: #{r.resource_status}"
-          end
-        rescue Exception => e
-          raise Thor::Error, e.message
+          cf_client.describe_stack_resources(
+            stack_name: stack.stack_name
+          ).stack_resources.each { |r| display_stack_resource(r) }
         end
 
         desc 'create', 'Create stack'
@@ -36,24 +27,12 @@ module Shelter
             stack_name: get_attr(:stack_name),
             template_body: File.open(get_attr(:template_file)).read,
             capabilities: ['CAPABILITY_IAM'],
-            tags: [
-              { key: 'client', value: get_attr(:meta)[:client] },
-              { key: 'type', value: get_attr(:meta)[:type] },
-              { key: 'application', value: get_attr(:meta)[:application] }
-            ]
+            tags: stack_meta
           )
-          i = 0
           cf_client.wait_until(
             :stack_create_complete,
             stack_name: get_attr(:stack_name)
-          ) do |w|
-            w.before_attempt do
-              i = (i + 1) % SPINNER.size
-              print "\r#{SPINNER[i]}"
-            end
-          end
-        rescue Exception => e
-          raise Thor::Error, e.message
+          )
         end
 
         desc 'update', 'Update stack'
@@ -63,32 +42,29 @@ module Shelter
             template_body: File.open(get_attr(:template_file)).read,
             capabilities: ['CAPABILITY_IAM']
           )
-          i = 0
           cf_client.wait_until(
             :stack_update_complete,
             stack_name: get_attr(:stack_name)
-          ) do |w|
-            w.before_attempt do
-              i = (i + 1) % SPINNER.size
-              print "\r#{SPINNER[i]}"
-            end
-          end
-        rescue Exception => e
-          raise Thor::Error, e.message
+          )
         end
 
+        # Attribute helpers
         no_commands do
           class << self
+            attr_accessor :_attr
             def set_attr(name, value)
-              @@_attr ||= {}
-              @@_attr[name] = value
+              self._attr ||= {}
+              self._attr[name] = value
             end
           end
 
           def get_attr(name)
-            @@_attr[name] if @@_attr.key? name
+            self.class._attr[name] if self.class._attr.key? name
           end
+        end
 
+        # AWS helpers
+        no_commands do
           def cf_client
             @cf_client ||= Aws::CloudFormation::Client.new(
               credentials: Aws::Credentials.new(
@@ -98,20 +74,19 @@ module Shelter
             )
           end
 
-          def public_ip
-            target_stack = cf_client.describe_stacks(
-              stack_name: get_attr(:stack_name)
-            ).stacks.first
+          def display_stack_resource(r)
+            puts "Stack Name: #{r.stack_name}"
+            puts "Resource ID: #{r.physical_resource_id}"
+            puts "Resource Type: #{r.resource_type}"
+            puts "Resource Status: #{r.resource_status}"
+          end
 
-            resources = cf_client.describe_stack_resources(
-              stack_name: target_stack.stack_name
-            )
-
-            eip = resources.stack_resources.select do |r|
-              r.resource_type == 'AWS::EC2::EIP'
-            end.first
-
-            eip.physical_resource_id
+          def stack_meta
+            [
+              { key: 'client', value: get_attr(:meta)[:client] },
+              { key: 'type', value: get_attr(:meta)[:type] },
+              { key: 'application', value: get_attr(:meta)[:application] }
+            ]
           end
         end
       end

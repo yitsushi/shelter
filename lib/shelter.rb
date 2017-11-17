@@ -17,7 +17,9 @@ class String
              else
                string.sub(/^(?:(?=\b|[A-Z_])|\w)/) { $&.downcase }
              end
-    string.gsub(/(?:_|(\/))([a-z\d]*)/) { "#{Regexp.last_match(1)}#{Regexp.last_match(2).capitalize}" }.gsub('/', '::')
+    string.gsub(%r{(?:_|(/))([a-z\d]*)}) do
+      "#{Regexp.last_match(1)}#{Regexp.last_match(2).capitalize}"
+    end.gsub('/', '::')
   end
 end
 

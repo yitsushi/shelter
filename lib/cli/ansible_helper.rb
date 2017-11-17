@@ -26,22 +26,25 @@ module Shelter
         command
       end
 
-      def optional_params(tags: [], skip: [], limit: nil)
+      def optional_params(opts)
         command = []
-        command << "--tags '#{tags.join(',')}'" unless tags.empty?
-        command << "--skip-tags '#{skip.join(',')}'" unless skip.empty?
-        command << "--limit '#{limit}'" unless limit.nil?
+        command << "--tags '#{opts[:tags].join(',')}'" unless opts[:tags].empty?
+        command << "--skip-tags '#{opts[:skip].join(',')}'" unless
+          opts[:skip].empty?
+        command << "--limit '#{opts[:limit]}'" unless opts[:limit].nil?
         command
       end
 
-      def ansible_execute(
-        playbook,
-        server_user: nil, inventory: nil,
-        tags: [], skip: [], limit: nil
-      )
-        command = [command_bin, inventory_file(inventory), vault_password_file]
-        command += new_server_params(server_user)
-        command += optional_params(tags: tags, skip: skip, limit: limit)
+      # server_user: nil, inventory: nil,
+      # tags: [], skip: [], limit: nil
+      def ansible_execute(playbook, options = {})
+        params = {
+          inventory: nil, server_user: nil, tags: [], skip: [], limit: nil
+        }.merge(options)
+        command = [command_bin, inventory_file(params[:inventory]),
+                   vault_password_file]
+        command += new_server_params(params[:server_user])
+        command += optional_params(params)
         command << "#{App.config.ansible_directory}/#{playbook}.yaml"
 
         full_command = command.join(' ')
