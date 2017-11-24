@@ -32,7 +32,7 @@ module Shelter
         end
 
         no_commands do
-          include Shelter::CLI::AnsibleHelpers
+          include Shelter::CLI::Helpers::Ansible
         end
       end
     end

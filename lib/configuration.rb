@@ -8,13 +8,15 @@ module Shelter
                   :secure_root,
                   :inventory_script,
                   :inventory_directory,
-                  :plugin_directory
+                  :plugin_directory,
+                  :resource_directory
 
     attr_reader   :project_root
 
     def initialize
       @ansible_directory = 'ansible'
       @stack_directory = 'stacks'
+      @resource_directory = 'resources'
       @secure_root = ENV.fetch('SECURE', 'secure')
       @inventory_script = File.join(
         File.dirname($PROGRAM_NAME),
