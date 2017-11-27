@@ -32,7 +32,7 @@ end
 namespace :doc do
   desc 'generate API documentation'
   Rake::RDocTask.new do |rd|
-    rd.rdoc_dir = 'doc'
+    rd.rdoc_dir = 'html'
     rd.main = 'README.md'
     rd.rdoc_files.include(
       '*.md',
