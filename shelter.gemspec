@@ -11,13 +11,20 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ::Gem::Requirement.new('>= 2.3')
 
-  s.files       = Dir['README.md', 'LICENSE', 'lib/**/*.rb']
+  s.files       = Dir['*.md', 'lib/**/*.rb']
   s.executables = ['shelter', 'shelter-inventory']
 
   s.require_path = 'lib'
 
   s.homepage    = 'https://github.com/yitsushi/shelter'
   s.license     = 'MIT'
+
+  s.extra_rdoc_files = Dir['*.md']
+  s.rdoc_options = [
+    '--main', 'README.md',
+    '--line-numbers',
+    '--all'
+  ]
 
   s.add_dependency 'aws-sdk', '~> 3'
   s.add_dependency 'thor', '=0.20.0'

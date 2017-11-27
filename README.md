@@ -1,95 +1,55 @@
-[![Gem Version](https://badge.fury.io/rb/shelter.svg)](https://badge.fury.io/rb/shelter)
-[![Build Status](https://travis-ci.org/Yitsushi/shelter.svg?branch=master)](https://travis-ci.org/Yitsushi/shelter)
+Manage your infrastructure in one place Edit
 
-# Configuration
+# Getting Started
 
-Create `Shelterfile.rb`:
+1. Create a directory for your project:
+
+```
+$ mkdir myinfra && cd myinfra
+```
+
+2. Create your `Shelterfile.rb` and define your environment:
 
 ```ruby
 Shelter::CLI::App.config do |c|
+  # All of them are optional
   c.ansible_directory = 'ansible'
   c.stack_directory = 'stack'
   c.plugin_directory = 'plugin'
   c.inventory_directory = 'inventory'
+  c.resource_directory = 'resources'
   c.secure_root = ENV.fetch('CHEPPERS_SECURE')
 end
 ```
 
-# Inventory script
+3. Create the directory structure
 
-Create a ruby file under your inventory directory:
-
-```ruby
-# inventory/my_inventory.rb
-module Inventory
-  class MyInventory
-    def load(inventory)
-      inventory.add_group_vars 'groupname', ch_env: 'value'
-      inventory.add_server 'groupname', 'ip-address'
-    end
-  end
-end
+```
+$ mkdir -p ansible stack plugin inventory resources/templates
 ```
 
-# Define a stack
+4. Create your first Ansible playbook: `ansible/configuration.yaml`
 
-Create a directory under your `stack` directory (eg: `random`)
-and create your template there. `cli.rb` will be loaded.
-
-```ruby
-# stack/random_stack/cli.rb:
-module Stack
-  class RandomStack < Shelter::CLI::Stack::CloudFormation
-    set_attr :stack_name, 'random'
-    set_attr :template_file, File.expand_path('template.yaml', File.dirname(__FILE__))
-    set_attr :meta, {
-      type: 'development',
-      client: 'cheppers',
-      application: 'random'
-    }
-  end
-end
+```yaml
+---
+- name: Ping all hosts
+  hosts: all
+  tasks:
+    - ping:
 ```
 
-# Create plugin
+# Documentation
 
-Create a directory under your `plugin` directory and place your code there.
-`main.rb` will be loaded.
+- [Resource management](https://github.com/Yitsushi/shelter/wiki/Resource-Management)
+- [Inventory scripts](https://github.com/Yitsushi/shelter/wiki/Inventory-Scripts)
+- [Define a Stack](https://github.com/Yitsushi/shelter/wiki/Define-a-Stack)
+- [Write Your Own Plugin](https://github.com/Yitsushi/shelter/wiki/Write-Your-Own-Plugin)
 
-### Example #1: extra command
+## Code Status
 
-```ruby
-# plugin/check/main.rb
-require 'thor'
+[![Gem Version](https://badge.fury.io/rb/shelter.svg)](https://badge.fury.io/rb/shelter)
+[![Build Status](https://travis-ci.org/Yitsushi/shelter.svg?branch=master)](https://travis-ci.org/Yitsushi/shelter)
 
-module Plugin
-  class Check < Thor
-    desc 'environment', 'Check environment'
-    def environment
-      puts "check"
-    end
-  end
-end
+## License
 
-Shelter::CLI::App.register(Plugin::Check, 'check', 'check [COMMAND]', 'check plugin')
-```
-
-### Example #2: extra command under a specific namespace
-
-```ruby
-# plugin/ansible_scanner/main.rb
-require 'thor'
-
-module Plugin
-  class Ansible < Thor
-    desc 'scanner', 'scanner'
-    def scanner
-      puts "scan"
-    end
-
-    default_task :scanner
-  end
-end
-
-Shelter::CLI::Command::Ansible.register(Plugin::Ansible, 'scanner', 'scanner', 'Scan')
-```
+Shelter is released under the [MIT License](http://www.opensource.org/licenses/MIT).
