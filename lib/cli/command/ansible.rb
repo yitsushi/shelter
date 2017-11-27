@@ -21,6 +21,7 @@ module Shelter
                       type: :string,
                       default: nil,
                       desc: 'Specify inventory file/script'
+        # Calls Ansible with the `configuration.yaml` playbook
         def update
           ansible_execute(
             'configuration',

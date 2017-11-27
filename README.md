@@ -93,3 +93,7 @@ end
 
 Shelter::CLI::Command::Ansible.register(Plugin::Ansible, 'scanner', 'scanner', 'Scan')
 ```
+
+## More documentation
+
+ - {rdoc-ref:Resource.md}

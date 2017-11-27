@@ -35,10 +35,9 @@ namespace :doc do
     rd.rdoc_dir = 'doc'
     rd.main = 'README.md'
     rd.rdoc_files.include(
-      'README.md',
-      'LICENSE',
-      "bin/**/*\.rb",
-      "lib/**/*\.rb"
+      '*.md',
+      'bin/**/*.rb',
+      'lib/**/*.rb'
     )
     rd.options << '--line-numbers'
     rd.options << '--all'
