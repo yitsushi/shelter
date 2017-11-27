@@ -2,6 +2,7 @@
 
 require 'thor'
 
+require_all(File.join(File.dirname(__FILE__), 'helpers'))
 require_all(File.join(File.dirname(__FILE__), 'command'))
 require_all(File.join(File.dirname(__FILE__), 'stack'))
 
@@ -24,6 +25,13 @@ module Shelter
         'ansible',
         'ansible [COMMAND]',
         'Ansible related commands'
+      )
+
+      register(
+        Shelter::CLI::Command::Resource,
+        'resource',
+        'resource [COMMAND]',
+        'Resource management'
       )
 
       # Register server managers

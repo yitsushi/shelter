@@ -27,9 +27,15 @@ LIB_ROOT = File.expand_path('../', __FILE__)
 
 def require_all(dir)
   path = File.join(dir, '*')
+  later = []
   Dir.glob(path).each do |file|
     require file if File.file?(file)
-    require_all(file) if File.directory?(file)
+    later << file if File.directory?(file)
+  end
+
+  # Require subdirs
+  later.each do |file|
+    require_all(file)
   end
 end
 
