@@ -1,3 +1,8 @@
+---
+title: Write Your Own Plugin
+permalink: /docs/write-your-own-plugin/
+---
+
 Create a directory under your `plugin` directory and place your code there.
 `main.rb` will be loaded.
 

@@ -1,4 +1,9 @@
-# Basic Directory Structure
+---
+title: Resource Management
+permalink: /docs/resource-management/
+---
+
+## Basic Directory Structure
 
 By default, Shelter is looking for a directory named `resources` with a
 subdirectory name `templates`.
@@ -19,7 +24,7 @@ to be defined in `.yaml` format with a few specific tags in it.
 You can specify where is your resources directory in `Shelterfile.rb`
 with `resource_directory`.
 
-## Templates definition
+### Templates definition
 
 In our example above, we have only one template named `restricted-s3`.
 This template defined a CloudFormation stack that contains an S3 bucket,
@@ -102,7 +107,7 @@ Outputs:
     Value: !GetAtt AccessKey.SecretAccessKey
 ```
 
-## Resource definition
+### Resource definition
 
 Now we have a template named `restricted-s3`. We can start creating
 resources with this template. For now, we can create a backup user and S3
@@ -153,7 +158,7 @@ be tagged with these tags.
 **Parameters**: This is a simple key-value list. That's how we can
 define parameters for our CloudFormation template.
 
-# CLI
+## CLI
 
 ```
 Commands:

@@ -1,0 +1,8 @@
+<div style='margin-bottom: 1em;'>
+  <aside>
+    {% for section in site.data.docs %}
+    <h4 style='margin-bottom: 0.3em;'>{{ section.title }}</h4>
+    {% include docs_ul.html items=section.docs %}
+    {% endfor %}
+  </aside>
+</div>

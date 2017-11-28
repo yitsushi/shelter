@@ -1,0 +1,21 @@
+---
+theme: jekyll-theme-minimal
+name: Shelter Documentation
+baseurl: /shelter
+url: "yitsushi.github.io"
+
+defaults:
+  -
+    scope:
+      path: "_docs"
+      type: "docs"
+    values:
+      layout: "default"
+
+collections:
+  docs:
+    permalink: /:collection/:path/
+    output: true
+
+repository: Yitsushi/shelter
+gem_name: shelter

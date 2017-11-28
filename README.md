@@ -40,10 +40,10 @@ $ mkdir -p ansible stack plugin inventory resources/templates
 
 # Documentation
 
-- [Resource management](https://github.com/Yitsushi/shelter/wiki/Resource-Management)
-- [Inventory scripts](https://github.com/Yitsushi/shelter/wiki/Inventory-Scripts)
-- [Define a Stack](https://github.com/Yitsushi/shelter/wiki/Define-a-Stack)
-- [Write Your Own Plugin](https://github.com/Yitsushi/shelter/wiki/Write-Your-Own-Plugin)
+- [Resource management](https://yitsushi.github.io/shelter/docs/resource-management/)
+- [Inventory scripts](https://yitsushi.github.io/shelter/docs/inventory-scripts/)
+- [Define a Stack](https://yitsushi.github.io/shelter/docs/define-a-stack/)
+- [Write Your Own Plugin](https://yitsushi.github.io/shelter/docs/write-your-own-plugin/)
 
 ## Code Status
 

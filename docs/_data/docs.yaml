@@ -1,0 +1,7 @@
+- title: Getting Started
+  docs:
+    - home
+    - resource-management
+    - inventory-scripts
+    - define-a-stack
+    - write-your-own-plugin

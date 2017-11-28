@@ -1,3 +1,8 @@
+---
+title: Inventory Scripts
+permalink: /docs/inventory-scripts/
+---
+
 Create a ruby file under your inventory directory:
 
 ```ruby
