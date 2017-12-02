@@ -33,14 +33,14 @@ module Shelter
           puts "#{out.output_key}: #{out.output_value}"
         end
 
-        def stack_meta(res)
+        def stack_meta(res, type: 'resource')
           tags = []
 
           res.each do |key, value|
             tags << { key: key.to_s, value: value.to_s }
           end
 
-          tags << { key: 'type', value: 'resource' }
+          tags << { key: 'type', value: type }
 
           tags
         end

@@ -238,7 +238,7 @@ module Shelter
             template_body: read_template(res['template']),
             tags: res['tags'], parameters: res['parameters']
           )
-          wait_until(:stack_delete_complete, resource['name'])
+          wait_until(:stack_update_complete, resource['name'])
         rescue Aws::CloudFormation::Errors::ValidationError => e
           puts e.message
         end
