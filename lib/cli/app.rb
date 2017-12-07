@@ -25,14 +25,14 @@ module Shelter
         'ansible',
         'ansible [COMMAND]',
         'Ansible related commands'
-      )
+      ) if File.directory?(App.config.ansible_directory)
 
       register(
         Shelter::CLI::Command::Resource,
         'resource',
         'resource [COMMAND]',
         'Resource management'
-      )
+      ) if File.directory?(App.config.resource_directory)
 
       # Register server managers
       base_path = File.join(App.config.stack_directory, '*')
