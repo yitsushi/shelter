@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shelter (0.0.6)
+    shelter (0.0.7)
       aws-sdk (~> 3)
       thor (= 0.20.0)
 

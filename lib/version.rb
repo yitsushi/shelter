@@ -3,5 +3,5 @@
 module Shelter
   # Current version to publish
   # Gemspec also uses this constant
-  VERSION = '0.0.6'
+  VERSION = '0.0.7'
 end
