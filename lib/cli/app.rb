@@ -27,6 +27,13 @@ module Shelter
           'ansible [COMMAND]',
           'Ansible related commands'
         )
+
+        register(
+          Shelter::CLI::Command::Vault,
+          'vault',
+          'vault [COMMAND]',
+          'Ansible Vault related commands'
+        )
       end
 
       if File.directory?(App.config.resource_directory)

@@ -52,6 +52,12 @@ module Shelter
           full_command = command.join(' ')
           system full_command
         end
+
+        def vault_execute(command, file)
+          file = "/#{file}" unless file.start_with?('/')
+          file = "#{App.config.secure_root}#{file}_secret.yaml"
+          system "ansible-vault #{command} #{vault_password_file} #{file}"
+        end
       end
     end
   end
