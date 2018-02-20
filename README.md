@@ -38,6 +38,25 @@ $ mkdir -p ansible stack plugin inventory resources/templates
     - ping:
 ```
 
+# Secrets
+
+**TODO: make its own page**
+
+```
+# List all existing secret files
+bundle exec shelter vault list
+
+# Example how to read aws creds from secure
+bundle exec shelter vault view /staging/aws_creds
+
+# Example how to create a new secret file/scope (for format, you can view an existing one)
+bundle exec create vault view /staging/something
+
+# Example how to edit a secret file
+bundle exec create vault update /staging/nginx_creds
+```
+
+
 # Documentation
 
 - [Resource management](https://yitsushi.github.io/shelter/docs/resource-management/)
