@@ -24,10 +24,12 @@ module Shelter
 
         desc 'list', 'list existsing secret files'
         def list
-          file_list = Dir["#{App.config.secure_root}/**/*_secret.yaml"]
-          puts file_list.map do |f|
+          file_list = Dir["#{App.config.secure_root}/**/*_secret.yaml"].to_a
+          formatted = file_list.map do |f|
             "  #{f.sub(App.config.secure_root, '').sub('_secret.yaml', '')}"
-          end.join("\n")
+          end
+
+          puts formatted.join("\n")
         end
 
         no_commands do
